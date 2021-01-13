@@ -2,6 +2,7 @@
 #import "FFFastImageView.h"
 
 #import <SDWebImage/SDWebImagePrefetcher.h>
+#import <SDWebImage/SDImageCache.h>
 
 @implementation FFFastImageViewManager
 
@@ -33,6 +34,9 @@ RCT_EXPORT_METHOD(preload:(nonnull NSArray<FFFastImageSource *> *)sources)
 
     [[SDWebImagePrefetcher sharedImagePrefetcher] prefetchURLs:urls];
 }
-
+RCT_EXPORT_METHOD(clearDiskCache)
+{
+    [SDImageCache.sharedImageCache clearDiskOnCompletion:^(){}];
+}
 @end
 
