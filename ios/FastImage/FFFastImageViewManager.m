@@ -34,9 +34,17 @@ RCT_EXPORT_METHOD(preload:(nonnull NSArray<FFFastImageSource *> *)sources)
 
     [[SDWebImagePrefetcher sharedImagePrefetcher] prefetchURLs:urls];
 }
-RCT_EXPORT_METHOD(clearDiskCache)
+RCT_EXPORT_METHOD(clearMemoryCache:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 {
-    [SDImageCache.sharedImageCache clearDiskOnCompletion:^(){}];
+    [SDImageCache.sharedImageCache clearMemory];
+    resolve(NULL);
+}
+
+RCT_EXPORT_METHOD(clearDiskCache:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
+{
+    [SDImageCache.sharedImageCache clearDiskOnCompletion:^(){
+        resolve(NULL);
+    }];
 }
 @end
 
